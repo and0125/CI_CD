@@ -609,7 +609,51 @@ See page 117 for the example script, but this contains all the possible jenkins 
   - Stage: this allows for the logical grouping of steps
   - When: this determines whether a stage should be executed depending on the given condition.
 
-  
+
+#### Steps
+
+These are the most fundamental part of the pipeline, they define the operations to be executed. 
+
+Some common commands for steps are:
+
+- sh: this executes the shell command, and its possible to define almost any operation using sh.
+- custom: Jenkins offers a lot of operations that can be used as steps (like echo) many of them are wrappers over the sh command used for convenience. Plugins can also define their own operations. 
+- script: this executes a block of the groovy-based code that can be used for non-trivial scnearios where flow control is needed. 
+
+The pipeline syntax is very generic, and can be used to automate almost any process, but its commonly used to implement a continuous integration server. 
+
+### The Commit Pipeline
+
+the most basic continuous integration process is caleld a commit pipeline. This clasisc phase, as its name indicates, starts with a commit (opr push in Git) to the main repository and results in a report about the build success or failure. Since it runs after each change in the code, the build should take no more than five minutes and should consume a reasonable amount of resources. 
+
+The commit phase is always the starting point of the continuous deliery process and provides the most important feedback cycle in the development process, which is constant information if the code is in a healthy state. 
+
+The commit phase works as follows: a developer checks in the code to the repository, then the coninuous integration server detects the change, and the build starts. The most fundamental commit pipeline contains three stages:
+
+- checkout: this stage downloads the soruce code from the repository
+- compile: This stage compiles the source code
+- unit test: this stage runs a suite of unit tests
+
+#### Checkout 
+
+Checking out code from the repository is always the first operation in any pipeline. In order to see this, we need to have a repository. Then, we will be able to create a pipeline. 
+
+In Jenkins you can create a new pipeline called calculator, and use a command to pull the code with a stage called checkout:
+
+```
+pipeline {
+  agent any
+  stages {
+    stage("Checkout") {
+      steps {
+        git url: <git address for code repo>
+      }
+    }
+  }
+}
+```
+
+In order to run the above pipeline, the git toolkit needs to be installed on the node where the build is executed. 
 
 
 
