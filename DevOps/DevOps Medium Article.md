@@ -81,6 +81,8 @@ This will be done with Terraform.
 
 You can improve the manual deployment a bit by storing the configuration of your kubernetes objects in yaml files.
 
+pick back up at -> manage your app as code.
+
 ### Reference Articles
 
 Reference articles for Kubernetes:
